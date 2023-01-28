@@ -15,7 +15,7 @@ while True:
         "page[number]": page_num
     }
 
-    response = ic.get("campus_users", params=payload)
+    response = ic.get("cursus_users", params=payload)
     if response.status_code == 200: # Is the status OK?
         data = response.json()
     if not data:
