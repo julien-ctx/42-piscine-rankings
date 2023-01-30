@@ -5,6 +5,9 @@ import sys
 import pandas as pd
 from datetime import datetime, timedelta
 
+# Piscine dates:
+# September 2021: 2021-09-06 to 2021-10-02 (not included)
+
 def get_logtime(id, start_time, end_time):
     payload = {
         "filter[campus_id]": campus_id,
@@ -15,14 +18,16 @@ def get_logtime(id, start_time, end_time):
     response = ic.get(f"users/{id}/locations_stats", params=payload)
     if response.status_code == 200:
         data = response.json()
-
-    try:
-        logtimes = [datetime.strptime(value, '%H:%M:%S.%f') for value in data.values()]
-        minutes = int(sum([log.minute for log in logtimes])) / 60
-        hours = int(sum([log.hour for log in logtimes]) + minutes)
-        minutes = round((minutes - int(minutes)) * 60)
-    except ValueError as e:
-        return 0, 0
+    logtimes = []
+    for value in data.values():
+        if (value.startswith('24')):
+            for _ in range(2):
+                logtimes.append(datetime.strptime('12:00:00', '%H:%M:%S'))
+        else:
+            logtimes.append(datetime.strptime(value, '%H:%M:%S.%f'))
+    minutes = int(sum([log.minute for log in logtimes])) / 60
+    hours = int(sum([log.hour for log in logtimes]) + minutes)
+    minutes = round((minutes - int(minutes)) * 60)
     return hours, minutes
 
 def get_users():
@@ -33,6 +38,7 @@ def get_users():
     pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
     start_time = input(color.BLUE + "START DATE (YYYY-MM-DD): " + color.RESET)
     end_time = input(color.BLUE + "END DATE (YYYY-MM-DD): " + color.RESET)
+    sorted_by = input(color.BLUE + "SORTED BY (total_time, login, level): " + color.RESET)
 
     while (True):
         payload = {
@@ -52,7 +58,7 @@ def get_users():
         for user in data:
             users.append(user['id'])
         page_num += 1
-    return users, start_time, end_time
+    return users, start_time, end_time, sorted_by
 
 if __name__ == "__main__":
     page_num = 1
@@ -63,10 +69,10 @@ if __name__ == "__main__":
         'login': [],
         'logtime_hours': [],
         'logtime_min': [],
-        'total_min': []
+        'total_time': []
     })
 
-    users, start_time, end_time = get_users()
+    users, start_time, end_time, sorted_by = get_users()
 
     while True:
         payload = {
@@ -87,17 +93,17 @@ if __name__ == "__main__":
                     new_row = pd.DataFrame({
                         'id': [int(user['user']['id'])],
                         'name': [user['user']['displayname']],
-                        'level': [float(user['level'])],
+                        'level': [round(float(user['level']), 2)],
                         'login': [user['user']['login']],
                         'logtime_hours': [int(hours)],
                         'logtime_min': [int(minutes)],
-                        'total_min': [int(hours) * 24 + int(minutes)]
+                        'total_time': [int(hours) * 24 + int(minutes)]
                     })
                     df = pd.concat([df, new_row], ignore_index=True)
             page_num += 1
         else:
             sys.exit(f"Unexpected response: code ${response.status_code}")
 
-    df = df.sort_values(by='total_min', ascending=False)
-    df.to_csv('february.csv', index=False)
+    df = df.sort_values(by=sorted_by, ascending=False)
+    df.to_csv('logtime.csv', index=False)
 

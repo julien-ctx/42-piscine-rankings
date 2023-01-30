@@ -1,0 +1,99 @@
+id,name,level,login,logtime_hours,logtime_min,total_time
+97860.0,Axel Coézard,11.11,acoezard,276.0,0.0,6624.0
+97753.0,Salvatore Spina,10.64,sspina,260.0,18.0,6258.0
+98120.0,Olivier Smith,10.34,osmith,279.0,22.0,6718.0
+97896.0,Loan Matarise,10.26,lmataris,215.0,33.0,5193.0
+97963.0,Kevin Bernardini,10.07,kbernard,154.0,39.0,3735.0
+97918.0,Andréa Chanselme,10.04,achansel,189.0,21.0,4557.0
+97940.0,Min Guk Kang,9.99,min-kang,256.0,1.0,6145.0
+98122.0,Andrew Colin,9.8,acolin,214.0,22.0,5158.0
+97751.0,Julien Caucheteux,9.69,jcauchet,276.0,27.0,6651.0
+97758.0,Guillaume Philippault,9.55,gphilipp,222.0,23.0,5351.0
+97759.0,Anthony Guiri,9.39,aguiri,213.0,45.0,5157.0
+97959.0,Youssef Boughanmi,9.12,yboughan,161.0,52.0,3916.0
+97868.0,Valentin L'hotellier,9.08,vl-hotel,198.0,28.0,4780.0
+97786.0,Guillaume Flego,9.01,gflego,191.0,5.0,4589.0
+97736.0,Ilan Tressols,8.98,itressol,205.0,29.0,4949.0
+97837.0,Ahcene Belhadi,8.63,abelhadi,298.0,44.0,7196.0
+97731.0,Mathieu Lecherbonnier,8.45,mlecherb,194.0,57.0,4713.0
+98124.0,Raphaël Di Marzio,8.42,rdi-marz,186.0,8.0,4472.0
+97914.0,Louis Sylvestre,8.27,losylves,261.0,22.0,6286.0
+97906.0,Nizar Hamdan,8.18,nhamdan,138.0,26.0,3338.0
+97912.0,Charly Tardy,8.08,ctardy,320.0,6.0,7686.0
+97764.0,Dorian Janninelle,8.07,dojannin,218.0,35.0,5267.0
+97861.0,Marie Sebbane,8.04,msebbane,241.0,14.0,5798.0
+97733.0,Mehdi La Rosa,7.95,mla-rosa,167.0,12.0,4020.0
+97905.0,Bilal Aroun,7.92,baroun,132.0,58.0,3226.0
+97820.0,Nicolas Hernandez,7.9,nhernand,170.0,10.0,4090.0
+98125.0,Dave Shirazi,7.84,dshirazi,179.0,18.0,4314.0
+97886.0,Théo Mongellaz,7.76,tmongell,192.0,18.0,4626.0
+97744.0,Yanis Lounici,7.68,ylounici,209.0,7.0,5023.0
+97760.0,Jules Ibot,7.6,jibot,265.0,10.0,6370.0
+97927.0,Evan Morvan,7.59,emorvan,102.0,36.0,2484.0
+97811.0,Karym Boumaraf,7.58,kboumara,219.0,24.0,5280.0
+97801.0,Hugo Lefèvre,7.56,hlefevre,194.0,15.0,4671.0
+97852.0,Malik Israilov,7.27,misrailo,292.0,5.0,7013.0
+97766.0,Paco Le Berre,7.15,ple-berr,243.0,16.0,5848.0
+97873.0,Justine Munoz,7.14,jumunoz,204.0,53.0,4949.0
+97778.0,Mourad Attig,7.13,mattig,179.0,58.0,4354.0
+97737.0,Kevyn Catrix,7.1,kcatrix,237.0,43.0,5731.0
+97908.0,Axel Duportal,7.07,aduporta,218.0,11.0,5243.0
+97889.0,Florent Martin,7.0,fmartin,204.0,46.0,4942.0
+97741.0,Celine Desile,6.67,cdesile,218.0,59.0,5291.0
+97732.0,Vincent Descamps,6.38,vdescamp,250.0,9.0,6009.0
+97881.0,Benjamin Gales,6.24,bgales,208.0,1.0,4993.0
+97828.0,Thomas Nicoué,6.22,tnicoue,195.0,57.0,4737.0
+98123.0,Morgan Masclet,6.21,mmasclet,152.0,37.0,3685.0
+97816.0,Axel Frendo,6.07,afrendo,217.0,43.0,5251.0
+97917.0,Kévin Troude,5.98,ktroude,242.0,32.0,5840.0
+97876.0,Gaëtan Saladino,5.91,gsaladin,229.0,59.0,5555.0
+97818.0,Remy Lachau,5.75,rlachau,204.0,52.0,4948.0
+97745.0,Benoit Leroy,5.68,bleroy,199.0,26.0,4802.0
+97900.0,Tamerlan Idigov,5.65,tidigov,151.0,45.0,3669.0
+97923.0,Nicolas Berlaud,5.47,nberlaud,86.0,12.0,2076.0
+97800.0,Marwan Ayoub,5.42,mayoub,228.0,14.0,5486.0
+97734.0,Gibran Mouaki Benani Abdelbaki,5.38,gmouaki-,166.0,13.0,3997.0
+97742.0,Cassandra Lecat,5.37,clecat,214.0,58.0,5194.0
+97794.0,Jonathan Skrlj,5.37,jskrlj,206.0,31.0,4975.0
+97789.0,Lucas Haillot,5.12,lhaillot,165.0,51.0,4011.0
+97781.0,Davy Moreira Tavares,5.11,damoreir,210.0,51.0,5091.0
+98119.0,Bastien Lemauf,4.97,blemauf,153.0,5.0,3677.0
+97806.0,Luka Ozimek  Santi,4.96,lozimek-,211.0,37.0,5101.0
+97772.0,Sylvain Gros,4.86,sgros,145.0,7.0,3487.0
+97856.0,Gregory Loubette,4.8,gloubett,166.0,6.0,3990.0
+97743.0,Julien Tessier,4.77,jtessier,226.0,15.0,5439.0
+97783.0,Dylan Torre,4.6,dtorre,182.0,42.0,4410.0
+97752.0,Alexandre Nonis,4.54,anonis,154.0,49.0,3745.0
+97870.0,Mathéo Petit,4.18,mpetit,185.0,38.0,4478.0
+97774.0,Faouzi Benidiri,3.83,fbenidir,121.0,21.0,2925.0
+97949.0,Karan Paheerathan,3.75,kpaheera,152.0,18.0,3666.0
+97954.0,Damien Onolfo,3.67,donolfo,168.0,1.0,4033.0
+97808.0,Emanuel Oran,3.52,eoran,154.0,34.0,3730.0
+97915.0,Dylan Troude,3.51,dtroude,205.0,53.0,4973.0
+97770.0,Angélina Thiburce,3.37,athiburc,162.0,22.0,3910.0
+97740.0,Christopher Dulla,3.31,cdulla,144.0,52.0,3508.0
+97748.0,Jeremy Lavigne,3.05,jlavigne,249.0,28.0,6004.0
+97866.0,Maxime André,3.02,maandre,170.0,18.0,4098.0
+97796.0,Rayhan Aguili,2.53,raguili,161.0,56.0,3920.0
+97746.0,Cécile Di Maggio,2.27,cdi-magg,198.0,6.0,4758.0
+97735.0,Mehdi Ben Amar,0.8,mben-ama,119.0,32.0,2888.0
+97907.0,Tom Gripon  Fraisse,0.0,tgripon-,7.0,34.0,202.0
+97943.0,Kevin Ricard,0.0,kricard,17.0,8.0,416.0
+97969.0,Maëlle Dupont,0.0,mdupont,0.0,0.0,0.0
+98121.0,Alexis Delaflore,0.0,adelaflo,3.0,47.0,119.0
+97777.0,Bahi Benhassaine,0.0,bbenhass,14.0,37.0,373.0
+97762.0,Kenza Slimani,0.0,kslimani,17.0,59.0,467.0
+97951.0,Jonathan Eckert,0.0,jeckert,8.0,10.0,202.0
+97879.0,Yanis Mager,0.0,ymager,11.0,8.0,272.0
+97947.0,Even Ferreira,0.0,eferreir,22.0,29.0,557.0
+97944.0,Romain Vandrebeck,0.0,rvandreb,13.0,31.0,343.0
+98118.0,Flavio Bussei,0.0,fbussei,2.0,18.0,66.0
+97747.0,Nguyen Minh Do,0.0,nminh-do,7.0,10.0,178.0
+97931.0,Tim Revellin Clerc,0.0,trevelli,5.0,36.0,156.0
+97928.0,Mark Thandilachvili,0.0,mthandil,19.0,56.0,512.0
+97755.0,Adem Araar,0.0,aaraar,11.0,19.0,283.0
+97738.0,Mathieu Renda,0.0,mrenda,25.0,16.0,616.0
+97739.0,Karl Dupuy,0.0,kdupuy,4.0,5.0,101.0
+97750.0,Abdulaziz Guney,0.0,aguney,52.0,22.0,1270.0
+97749.0,Valentin Jaskula,0.0,vjaskula,100.0,47.0,2447.0
+97793.0,Ioan Andrei Petre,0.0,ipetre,0.0,0.0,0.0
