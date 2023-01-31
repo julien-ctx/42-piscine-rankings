@@ -39,6 +39,7 @@ def get_users():
     start_time = input(color.BLUE + "START DATE (YYYY-MM-DD): " + color.RESET)
     end_time = input(color.BLUE + "END DATE (YYYY-MM-DD): " + color.RESET)
     sorted_by = input(color.BLUE + "SORTED BY (total_time, login, level): " + color.RESET)
+    filename = input(color.BLUE + "FILENAME: " + color.RESET)
 
     while (True):
         payload = {
@@ -58,7 +59,7 @@ def get_users():
         for user in data:
             users.append(user['id'])
         page_num += 1
-    return users, start_time, end_time, sorted_by
+    return users, start_time, end_time, sorted_by, filename
 
 if __name__ == "__main__":
     page_num = 1
@@ -72,7 +73,7 @@ if __name__ == "__main__":
         'total_time': []
     })
 
-    users, start_time, end_time, sorted_by = get_users()
+    users, start_time, end_time, sorted_by, filename = get_users()
 
     while True:
         payload = {
@@ -105,5 +106,5 @@ if __name__ == "__main__":
             sys.exit(f"Unexpected response: code ${response.status_code}")
 
     df = df.sort_values(by=sorted_by, ascending=False)
-    df.to_csv('logtime.csv', index=False)
+    df.to_csv(filename, index=False)
 
