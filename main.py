@@ -35,7 +35,12 @@ def get_users():
     users = []
     page_num = 1
     pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
+    while (pool_month not in 
+    ['january', 'february', 'march', 'april', 'may', 'september', 'november', 'december']):
+        pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
     pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
+    while (len(pool_year) != 4 or not pool_year.isdigit()):
+        pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
     start_time = input(color.BLUE + "START DATE (YYYY-MM-DD): " + color.RESET)
     end_time = input(color.BLUE + "END DATE (YYYY-MM-DD): " + color.RESET)
     sorted_by = input(color.BLUE + "SORTED BY (total_time, login, level): " + color.RESET)
@@ -107,4 +112,3 @@ if __name__ == "__main__":
 
     df = df.sort_values(by=sorted_by, ascending=False)
     df.to_csv(filename, index=False)
-
