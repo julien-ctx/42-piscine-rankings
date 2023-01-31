@@ -36,7 +36,8 @@ def get_users():
     page_num = 1
     pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
     while (pool_month not in 
-    ['january', 'february', 'march', 'april', 'may', 'september', 'november', 'december']):
+    ['january', 'february', 'march', 'april', 'may', 'june',
+    'july', 'august', 'september', 'october', 'november', 'december']):
         pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
     pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
     while (len(pool_year) != 4 or not pool_year.isdigit()):
