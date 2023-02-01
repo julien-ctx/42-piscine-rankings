@@ -1,9 +1,10 @@
 from intra import ic
 from config import campus_id
 from config import color as color
-import sys
+import sys, os
 import pandas as pd
 from datetime import datetime, timedelta
+import numpy as np
 
 def get_logtime(id, begin_time, end_time):
 	payload = {
@@ -20,9 +21,8 @@ def get_logtime(id, begin_time, end_time):
 		try:
 			logtimes.append(datetime.strptime(value, '%H:%M:%S.%f'))
 		except ValueError:
-			if (value.startswith('24')):
-				for _ in range(2):
-					logtimes.append(datetime.strptime('12:00:00', '%H:%M:%S'))
+			for _ in range(2):
+				logtimes.append(datetime.strptime('12:00:00', '%H:%M:%S'))
 	minutes = int(sum([log.minute for log in logtimes])) / 60
 	hours = int(sum([log.hour for log in logtimes]) + minutes)
 	minutes = round((minutes - int(minutes)) * 60)
@@ -66,6 +66,7 @@ if __name__ == "__main__":
 			for user in data:
 				if user['user']['pool_month'] == pool_month \
 				and user['user']['pool_year'] == pool_year:
+					print(f"\033[K{color.BOLD}Retrieving data from {user['user']['login']}{color.RESET}", end='\r')
 					if not begin_time:
 						begin_time = user['begin_at'].split('T')[0]
 					if not end_time:
@@ -85,6 +86,11 @@ if __name__ == "__main__":
 		else:
 			sys.exit(f"Unexpected response: code ${response.status_code}")
 
-	df = df.sort_values(by=sorted_by, ascending=False)
-	df.to_csv(sorted_by + '.csv', index=False)
 
+	df = df.sort_values(by=sorted_by, ascending=False)
+	df['rank'] = np.arange(1, len(df) + 1)
+	df.set_index('rank', inplace = True)
+	html_table = df.to_html()
+	with open(sorted_by + '.html', 'w') as f:
+		f.write(html_table)
+	os.system(f"open {sorted_by}.html")
