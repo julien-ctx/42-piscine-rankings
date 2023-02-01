@@ -3,3 +3,4 @@ requests==2.25.1
 tqdm==4.56.0
 Pygments==2.9.0
 pandas==1.5.1
+numpy==1.22.4
