@@ -79,7 +79,7 @@ if __name__ == "__main__":
 						'login': [user['user']['login']],
 						'logtime_hours': [int(hours)],
 						'logtime_min': [int(minutes)],
-						'total_time': [int(hours) * 24 + int(minutes)]
+						'total_time': [int(hours) * 60 + int(minutes)]
 					})
 					df = pd.concat([df, new_row], ignore_index=True)
 			page_num += 1
