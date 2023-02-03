@@ -39,6 +39,19 @@ style = """
 </style>
 """
 
+def get_exams(id):
+
+	payload = {
+			"filter[campus]": campus_id,
+		}
+	response = ic.get(f"users/{id}/projects_users", params=payload)
+	if response.status_code == 200:
+		data = response.json()
+	for project in data:
+		if (project['project']['name'] == 'C Piscine Exam 00'):
+			return project['final_mark'] if project['final_mark'] else 0
+	return 0
+
 def get_logtime(id, begin_time, end_time):
 	payload = {
 		"filter[campus_id]": campus_id,
@@ -70,7 +83,8 @@ if __name__ == "__main__":
 		'login': [],
 		'logtime_hours': [],
 		'logtime_min': [],
-		'total_time': []
+		'total_time': [],
+		'exam_00': []
 	})
 	pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
 	while (pool_month not in ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']):
@@ -78,7 +92,9 @@ if __name__ == "__main__":
 	pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
 	while (len(pool_year) != 4 or not pool_year.isdigit()):
 		pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
-	sorted_by = input(color.BLUE + "SORTED BY (total_time, login, level): " + color.RESET)
+	sorted_by = input(color.BLUE + "SORTED BY (total_time, exam, level): " + color.RESET)
+	if sorted_by == 'exam':
+		sorted_by == 'exam_00'
 
 	begin_time = ''
 	end_time = ''
@@ -105,6 +121,7 @@ if __name__ == "__main__":
 					if not end_time:
 						end_time = user['end_at'].split('T')[0]
 					hours, minutes = get_logtime(user['user']['id'], begin_time, end_time)
+					exam = get_exams(user['user']['id'])
 					new_row = pd.DataFrame({
 						'id': [int(user['user']['id'])],
 						'name': [user['user']['displayname']],
@@ -112,7 +129,8 @@ if __name__ == "__main__":
 						'login': [user['user']['login']],
 						'logtime_hours': [int(hours)],
 						'logtime_min': [int(minutes)],
-						'total_time': [int(hours) * 60 + int(minutes)]
+						'total_time': [int(hours) * 60 + int(minutes)],
+						'exam_00': [int(exam)]
 					})
 					df = pd.concat([df, new_row], ignore_index=True)
 			page_num += 1
