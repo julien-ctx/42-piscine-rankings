@@ -6,6 +6,39 @@ import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
 
+style = """
+<style>
+  .dataframe {
+    border-collapse: separate;
+    border-spacing: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    width: 80%;
+  }
+  th, td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  thead tr {
+    background-color: #f2f2f2;
+  }
+  th {
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  td {
+    background-color: #f9f9f9;
+    border-radius: 2px;
+  }
+</style>
+"""
+
 def get_logtime(id, begin_time, end_time):
 	payload = {
 		"filter[campus_id]": campus_id,
@@ -91,6 +124,9 @@ if __name__ == "__main__":
 	df['rank'] = np.arange(1, len(df) + 1)
 	df.set_index('rank', inplace = True)
 	html_table = df.to_html()
-	with open(sorted_by + '.html', 'w') as f:
+	file = sorted_by + '.html'
+	with open(file, 'w') as f:
+		f.write(style)
+	with open(file, 'a') as f:
 		f.write(html_table)
-	os.system(f"open {sorted_by}.html")
+	os.system(f"open {file}")
