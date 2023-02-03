@@ -94,7 +94,7 @@ if __name__ == "__main__":
 		pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
 	sorted_by = input(color.BLUE + "SORTED BY (total_time, exam, level): " + color.RESET)
 	if sorted_by == 'exam':
-		sorted_by == 'exam_00'
+		sorted_by = 'exam_00'
 
 	begin_time = ''
 	end_time = ''
