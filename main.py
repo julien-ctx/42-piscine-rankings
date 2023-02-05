@@ -1,9 +1,8 @@
-from intra import ic
-from config import campus_id
-from config import color as color
+from includes.intra import ic
+from includes.config import campus_id, color as color
+from datetime import datetime, timedelta
 import sys, os
 import pandas as pd
-from datetime import datetime, timedelta
 import numpy as np
 
 style = """
@@ -26,7 +25,7 @@ style = """
   thead tr {
     background-color: #f2f2f2;
   }
-  th {
+  th, a {
     background-color: #333;
     color: #fff;
     font-size: 16px;
@@ -76,25 +75,13 @@ def get_logtime(id, begin_time, end_time):
 
 if __name__ == "__main__":
 	page_num = 1
-	df = pd.DataFrame({
-		'id': [],
-		'name': [],
-		'level': [],
-		'login': [],
-		'logtime_hours': [],
-		'logtime_min': [],
-		'total_time': [],
-		'exam_00': []
-	})
+	df = pd.DataFrame({})
 	pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
 	while (pool_month not in ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']):
 		pool_month = input(color.BLUE + "POOL MONTH (letters): " + color.RESET)
 	pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
 	while (len(pool_year) != 4 or not pool_year.isdigit()):
 		pool_year = input(color.BLUE + "POOL YEAR (numbers): " + color.RESET)
-	sorted_by = input(color.BLUE + "SORTED BY (total_time, exam, level): " + color.RESET)
-	if sorted_by == 'exam':
-		sorted_by = 'exam_00'
 
 	begin_time = ''
 	end_time = ''
@@ -137,14 +124,21 @@ if __name__ == "__main__":
 		else:
 			sys.exit(f"Unexpected response: code ${response.status_code}")
 
-
-	df = df.sort_values(by=sorted_by, ascending=False)
-	df['rank'] = np.arange(1, len(df) + 1)
-	df.set_index('rank', inplace = True)
-	html_table = df.to_html()
-	file = sorted_by + '.html'
-	with open(file, 'w') as f:
-		f.write(style)
-	with open(file, 'a') as f:
-		f.write(html_table)
-	os.system(f"open {file}")
+	columns = ['id', 'name', 'level', 'login', 'logtime_hours', 'logtime_min', 'total_time', 'exam_00']
+	if not os.path.exists('dataframes'):
+		os.mkdir('dataframes')
+	for column in columns:
+		tmp = df.sort_values(by=column, ascending=False)
+		tmp['rank'] = np.arange(1, len(tmp) + 1)
+		tmp.set_index('rank', inplace = True)
+		html = tmp.to_html()
+		for link in columns:
+			html = html.replace(f'<th>{link}</th>', f'<th><a href="./{link}.html">{link}</a></th>')
+		with open(f"dataframes/{column}.html", 'w') as f:
+			f.write(style)
+			f.write(f'<h1 style="text-align: center">{column} rankings</h1>')
+			f.write('<h3 style="text-align: center">You can click on a column to sort the array by its values</h3>')
+		with open(f"dataframes/{column}.html", 'a') as f:
+			f.write(html)
+	if os.system(f"open dataframes/level.html"):
+		sys.exit("Error: couldn't open HTML default page")
