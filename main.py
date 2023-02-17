@@ -42,15 +42,17 @@ def get_exam(id, exam):
 	payload = {
 		"filter[campus]": campus_id,
 	}
-	
-	response = ic.get(f"users/{id}/projects_users", params=payload)
-	if response.status_code == 200:
-		data = response.json()
-		for project in data:
-			if (project['project']['name'] == exam):
-				return project['final_mark'] if project['final_mark'] else None
-	else:
-		sys.exit(f"Unexpected response: code ${response.status_code}")
+	try:
+		response = ic.get(f"users/{id}/projects_users", params=payload)
+		if response.status_code == 200:
+			data = response.json()
+			for project in data:
+				if (project['project']['name'] == exam):
+					return project['final_mark'] if project['final_mark'] else None
+		else:
+			sys.exit(f"Unexpected response: code ${response.status_code}")
+	except Exception as e:
+		sys.exit(e)
 
 def get_logtime(id, begin_time, end_time):
 	payload = {
@@ -58,23 +60,25 @@ def get_logtime(id, begin_time, end_time):
 		'begin_at': begin_time,
 		'end_at': end_time
 	}
-
-	response = ic.get(f"users/{id}/locations_stats", params=payload)
-	if response.status_code == 200:
-		data = response.json()
-		logtimes = []
-		for value in data.values():
-			try:
-				logtimes.append(datetime.strptime(value, '%H:%M:%S.%f'))
-			except ValueError:
-				for _ in range(2):
-					logtimes.append(datetime.strptime('12:00:00', '%H:%M:%S'))
-		minutes = int(sum([log.minute for log in logtimes])) / 60
-		hours = int(sum([log.hour for log in logtimes]) + minutes)
-		minutes = round((minutes - int(minutes)) * 60)
-		return hours, minutes
-	else:
-		sys.exit(f"Unexpected response: code ${response.status_code}")
+	try:
+		response = ic.get(f"users/{id}/locations_stats", params=payload)
+		if response.status_code == 200:
+			data = response.json()
+			logtimes = []
+			for value in data.values():
+				try:
+					logtimes.append(datetime.strptime(value, '%H:%M:%S.%f'))
+				except ValueError:
+					for _ in range(2):
+						logtimes.append(datetime.strptime('12:00:00', '%H:%M:%S'))
+			minutes = int(sum([log.minute for log in logtimes])) / 60
+			hours = int(sum([log.hour for log in logtimes]) + minutes)
+			minutes = round((minutes - int(minutes)) * 60)
+			return hours, minutes
+		else:
+			sys.exit(f"Unexpected response: code ${response.status_code}")
+	except Exception as e:
+		sys.exit(e)
 
 if __name__ == "__main__":
 	page_num = 1
@@ -97,38 +101,40 @@ if __name__ == "__main__":
 			"page[number]": page_num,
 			"filter[cursus_id]": 9,
 		}	
-
-		response = ic.get("cursus_users", params=payload)
-		if response.status_code == 200:
-			data = response.json()
-			if not data:
-				break
-			for user in data:
-				if user['user']['pool_month'] == pool_month \
-				and user['user']['pool_year'] == pool_year:
-					print(f"\033[K{color.BOLD}Retrieving data from {user['user']['login']}{color.RESET}", end='\r')
-					if not begin_time:
-						begin_time = user['begin_at'].split('T')[0]
-					if not end_time:
-						end_time = user['end_at'].split('T')[0]
-					hours, minutes = get_logtime(user['user']['id'], begin_time, end_time)
-					rows = pd.DataFrame({
-						'id': [int(user['user']['id'])],
-						'name': [user['user']['displayname']],
-						'level': [round(float(user['level']), 2)],
-						'login': [user['user']['login']],
-						'logtime_hours': [int(hours)],
-						'logtime_min': [int(minutes)],
-						'total_time': [int(hours) * 60 + int(minutes)],
-						
-					})
-					for exam in ['C Piscine Exam 00', 'C Piscine Exam 01', 'C Piscine Exam 02', 'C Piscine Final Exam']:
-						mark = get_exam(user['user']['id'], exam)
-						rows = rows.assign(**{exam[10:len(exam)].lower().replace(' ', '_'): int(mark) if mark else None})
-					df = pd.concat([df, rows], ignore_index=True)
-			page_num += 1
-		else:
-			sys.exit(f"Unexpected response: code ${response.status_code}")
+		try:
+			response = ic.get("cursus_users", params=payload)
+			if response.status_code == 200:
+				data = response.json()
+				if not data:
+					break
+				for user in data:
+					if user['user']['pool_month'] == pool_month \
+					and user['user']['pool_year'] == pool_year:
+						print(f"\033[K{color.BOLD}Retrieving data from {user['user']['login']}{color.RESET}", end='\r')
+						if not begin_time:
+							begin_time = user['begin_at'].split('T')[0]
+						if not end_time:
+							end_time = user['end_at'].split('T')[0]
+						hours, minutes = get_logtime(user['user']['id'], begin_time, end_time)
+						rows = pd.DataFrame({
+							'id': [int(user['user']['id'])],
+							'name': [user['user']['displayname']],
+							'level': [round(float(user['level']), 2)],
+							'login': [user['user']['login']],
+							'logtime_hours': [int(hours)],
+							'logtime_min': [int(minutes)],
+							'total_time': [int(hours) * 60 + int(minutes)],
+							
+						})
+						for exam in ['C Piscine Exam 00', 'C Piscine Exam 01', 'C Piscine Exam 02', 'C Piscine Final Exam']:
+							mark = get_exam(user['user']['id'], exam)
+							rows = rows.assign(**{exam[10:len(exam)].lower().replace(' ', '_'): int(mark) if mark else None})
+						df = pd.concat([df, rows], ignore_index=True)
+				page_num += 1
+			else:
+				sys.exit(f"Unexpected response: code ${response.status_code}")
+		except Exception as e:
+			sys.exit(e)
 
 	df = df.dropna(axis=1, how='all')
 	columns = df.columns
