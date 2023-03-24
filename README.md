@@ -1,4 +1,4 @@
-# 42_piscine_rankings
+# 42 Piscine Rankings: a script to stalk the piscine!
 
 ## Installation and usage
 
